@@ -42,6 +42,10 @@ public class View extends HttpServlet {
                 case "/viewtimkiem":
                     viewtimkiem(req, resp);
                     break;
+                case "/viewLogin":
+                    viewLogin(req, resp);
+                    break;
+
                 default:
                     resp.sendError(404);
 
@@ -121,6 +125,9 @@ public class View extends HttpServlet {
     }
     private  void viewtimkiem(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.sendRedirect("/WebContent/timkiem.jsp");
+    }
+    private  void viewLogin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.sendRedirect("/WebContent/login.jsp");
     }
 
 

@@ -9,8 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet("/CheckLoginServlet")
 public class CheckLoginServlet extends HttpServlet {
@@ -27,15 +27,16 @@ public class CheckLoginServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         AdminBO adminBO = new AdminBO();
-        List<nhanvien> nhanvienList = null;
-        List<phongban> phongbanList = null;
-        try {
-            if(adminBO.isValidAdmin(username, password)) {
-                nhanvienList = adminBO.getNhanvien();
-                req.setAttribute("nhanvienList", nhanvienList);
-                phongbanList = adminBO.getPhongban();
-                req.setAttribute("phongbanList", phongbanList);
 
+        try {
+            if (adminBO.isValidAdmin(username, password)) {
+                HttpSession session = req.getSession();
+                session.setAttribute("loggedInUser", username);
+
+                resp.setContentType("text/html;charset=UTF-8");
+                resp.getWriter().println("<script type=\"text/javascript\">");
+                resp.getWriter().println("window.top.location.href = '/WebContent/form.jsp';");
+                resp.getWriter().println("</script>");
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
