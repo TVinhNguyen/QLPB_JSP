@@ -83,5 +83,27 @@ public class NhanVienDAO {
         }
         return false;
     }
+    public List<nhanvien> getNVbyOption(String option , String text) {
+        List<nhanvien> nv = new ArrayList<nhanvien>();
+        try {
+            Connection conn = Database.getConnection();
+            String sql = "SELECT * FROM nhanvien WHERE " + option +  " LIKE ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,"%" +  text + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String IDNV = rs.getString("IDNV");
+                String HoTen = rs.getString("HoTen");
+                String IDPB = rs.getString("IDPB");
+                String DiaChi = rs.getString("DiaChi");
+                nhanvien nhanvien = new nhanvien(IDNV,HoTen,IDPB,DiaChi);
+                nv.add(nhanvien);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return nv;
+    }
 
 }

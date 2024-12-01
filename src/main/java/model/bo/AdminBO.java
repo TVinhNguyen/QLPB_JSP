@@ -36,6 +36,6 @@ public class AdminBO {
     public boolean updatePhongBan(phongban phongban) {
         return phongbanDAO.updatePB(phongban);
     }
-
+    public List<nhanvien> getNVbyOption(String option , String text) {return nhanvienDAO.getNVbyOption(option,text);}
 
 }

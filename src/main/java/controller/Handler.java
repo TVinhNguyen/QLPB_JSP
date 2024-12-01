@@ -33,6 +33,9 @@ public class Handler extends HttpServlet {
                 case "/xoanhieuNV":
                     xoanhieuNV(req, resp);
                     break;
+                case "/timkiemNV":
+                    timkiemNV(req, resp);
+                    break;
                 default:
                     resp.sendError(404);
 
@@ -131,5 +134,19 @@ public class Handler extends HttpServlet {
         }
         resp.sendRedirect("/View/xoanhieuNV");
 
+    }
+    private void timkiemNV(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        AdminBO adminBO = new AdminBO();
+        String option = req.getParameter("option");
+        String text = req.getParameter("infor");
+
+        List<nhanvien> nhanvienList = adminBO.getNVbyOption(option,text);
+        if(nhanvienList.size()!=0)
+        {
+            req.setAttribute("nhanvienList", nhanvienList);
+            String destination = "/WebContent/xemthongtinNV.jsp";
+            RequestDispatcher dispatcher = req.getRequestDispatcher(destination);
+            dispatcher.forward(req, resp);
+        }
     }
 }

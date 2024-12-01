@@ -33,11 +33,14 @@ public class View extends HttpServlet {
                 case "/capnhatPB":
                     viewcapnhatPB(req, resp);
                     break;
-                case "/xoamotNV":
+                case "/xoiamotNV":
                     viewxoamotNV(req, resp);
                     break;
                 case "/xoanhieuNV":
                     viewxoanhieuNV(req, resp);
+                    break;
+                case "/viewtimkiem":
+                    viewtimkiem(req, resp);
                     break;
                 default:
                     resp.sendError(404);
@@ -115,6 +118,9 @@ public class View extends HttpServlet {
         String destination = "/WebContent/viewxoanhieuNV.jsp";
         RequestDispatcher dispatcher = req.getRequestDispatcher(destination);
         dispatcher.forward(req, resp);
+    }
+    private  void viewtimkiem(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.sendRedirect("/WebContent/timkiem.jsp");
     }
 
 
